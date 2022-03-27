@@ -1,8 +1,29 @@
 const main = async () => {
-  const marketContractFactory = await hre.ethers.getContractFactory("Market");
-  const marketContract = await marketContractFactory.deploy();
-  await marketContract.deployed();
-  console.log("Contract deployed to:", marketContract.address);
+  const nftContractFactory = await hre.ethers.getContractFactory("MyEpicNFT");
+  const nftContract = await nftContractFactory.deploy();
+  await nftContract.deployed();
+  console.log("Contract deployed to:", nftContract.address);
+
+  // Call the function.
+  let txn = await nftContract.makeAnEpicNFT();
+  // Wait for it to be mined.
+  await txn.wait();
+
+  // Mint another NFT for fun.
+  txn = await nftContract.makeAnEpicNFT();
+  // Wait for it to be mined.
+  await txn.wait();
+
+  txn = await nftContract.makeAnEpicNFT();
+  // Wait for it to be mined.
+  await txn.wait();
+
+  txn = await nftContract.makeAnEpicNFT();
+  // Wait for it to be mined.
+  await txn.wait();
+
+  let currentNFTNumber = await nftContract.getTotalNFTsMintedSoFar();
+  console.log(currentNFTNumber);
 };
 
 const runMain = async () => {
